@@ -54,7 +54,7 @@ const getProducts = asyncHandler(async (req, res) => {
         // skip : 
         // +dasdasd => NaN
         const page = +req.query.page || 1 
-        const limit = +req.query.limit || 5
+        const limit = +req.query.limit || process.env.LIMIT_PRODUCTS
         console.log(`page ${page}, limit ${limit}`);
         // product_total = 6 
         // skip = (4-1) * 3
@@ -70,7 +70,7 @@ const getProducts = asyncHandler(async (req, res) => {
             const counts = await Product.find(formatedQueries).countDocuments()
             return res.status(200).json({
                 success: response ? true : false,
-                productDatas: response ? response : "Cannot get products",
+                products: response ? response : "Cannot get products",
                 counts
             })
         })
