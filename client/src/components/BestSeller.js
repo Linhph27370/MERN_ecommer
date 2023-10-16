@@ -18,27 +18,38 @@ const BestSeller = () => {
     const [bestSellers, setBestSellers] = useState(null)
     const [newProducts, setNewProducts] = useState(null)
     const [activeTab, setActiveTab] = useState(1)
+    const [products, setProducts] = useState(null)
     // promise.all gọi all các hàm đồng bộ 1 lúc , không phải đợi hàm khác chạy xong 
     const fechProducts = async () =>{
       const response = await Promise.all([apiGetProducts({sort:'-sold'}),apiGetProducts({sort: '-createdAt'})])
-      if(response[0].success) setBestSellers(response[0].products)
+      if(response[0].success) {
+        setBestSellers(response[0].products)
+        setProducts(response[0].products)
+      }
       if(response[1].success) setNewProducts(response[1].products)
     }
     useEffect(() =>{
       fechProducts()
     },[])
+    console.log(products);
+    useEffect(()=>{
+      console.log(activeTab);
+      if(activeTab === 1) setProducts(bestSellers)
+      if(activeTab === 2) setProducts(newProducts)
+    },[activeTab])
   return (
     <div>
-        <div className='flex text-[20px] gap-8 border-b-2 border-main'>
+        <div className='flex text-[20px]  ml-[-32px]'>
            {tabs.map(el => (
-            <span key={el.id} className={`font-bold cursor-pointer capitalize border-r text-gray-400 ${activeTab === el.id ? 'text-main' : ''} `}onClick={() => setActiveTab(el.id)} >{el.name}</span>
+            <span key={el.id} className={`font-bold cursor-pointer px-8 capitalize border-r text-gray-400 ${activeTab === el.id ? 'text-main' : ''} `}onClick={() => setActiveTab(el.id)} >{el.name}</span>
            ))}
         </div>
-        <div>
+        <div className='mt-4 mx-[-10px] border-t-2 border-main'>
         <Slider {...settings}>
-            {bestSellers?.map(el =>(
+            {products?.map(el =>(
                 <Product key={el.id}
                   productData={el}
+                  isNew={activeTab === 1 ? false : true}
                  />
             ))}
         </Slider>
