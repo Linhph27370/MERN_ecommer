@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { apiGetProducts } from '../apis/product'
 import { Product } from './'
 import Slider from "react-slick";
+import image1 from '../assets/banner1-home2_2000x_crop_center.avif'
+import image2 from '../assets/banner2-home2_2000x_crop_center.avif'
 const tabs =[
     {id:1, name: 'best seller'},
     {id:2, name: 'new arrivals'},
-    // {id:3, name: 'tablet'}
 ]
 const settings = {
   dots: true,
@@ -47,12 +48,18 @@ const BestSeller = () => {
         <div className='mt-4 mx-[-10px] border-t-2 border-main'>
         <Slider {...settings}>
             {products?.map(el =>(
-                <Product key={el.id}
-                  productData={el}
-                  isNew={activeTab === 1 ? false : true}
-                 />
+              <Product 
+                key={el._id}
+                productData={el}
+                pid={el.id}
+                isNew={activeTab === 1 ? false : true}
+              />
             ))}
         </Slider>
+        </div>
+        <div className='w-full flex gap-4 mt-8'>
+              <img className='flex-1 object-contain' src={image1}></img>
+              <img className='flex-1 object-contain' src={image2}></img>
         </div>
     </div>
   )

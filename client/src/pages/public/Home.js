@@ -13,12 +13,12 @@ const Home = () => {
         </div>
         <div className='flex flex-col gap-5 pl-5 w-[80%] flex-auto '>
             <Banner />
-            <span><BestSeller></BestSeller></span>
+            <BestSeller />
         </div>
     </div>
     <div className='w-full h-[500px]'>
-            <h1>hello</h1>
-        </div>
+           
+    </div>
     </>
   )
 }
