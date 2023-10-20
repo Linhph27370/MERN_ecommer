@@ -14,6 +14,7 @@ const Product = ({productData, isNew}) => {
       <div
       className='w-full border p-[15px] flex flex-col items-center'
       onMouseEnter={e => {
+        console.log(e);
         e.stopPropagation()
         setIsShowOption(true)
       }}
