@@ -4,6 +4,9 @@ import {Home , Login, Public} from './pages/public'
 import path from './ultils/path'
 import { getCategories } from './store/asyncActions';
 import { useDispatch } from 'react-redux';
+import {ToastContainer } from 'react-toastify'
+import {AdminLayout, CreateProduct, Dashboard, ManageProduct,ManageUser, MangeOrder} from './pages/admin'
+import {MemberLayout,Personal} from './pages/member'
 function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -15,7 +18,22 @@ function App() {
       <Route path={path.PUBLIC} element={<Public />}>
         <Route path={path.HOME} element={<Home />}/>
         <Route path={path.LOGIN} element={<Login />}/>
+        <Route path={path.ALL} element={<Home />}/>
       </Route>
+
+      <Route path={path.ADMIN} element={<AdminLayout />} >
+        <Route path={path.DASHBOARD} element={<Dashboard />} />
+        <Route path={path.MANGE_PRODUCTS} element={<ManageProduct />} />
+        <Route path={path.MANGE_ORDER} element={<MangeOrder />} />
+        <Route path={path.MANGE_USER} element={<ManageUser />} />
+        <Route path={path.CREATE_PRODUCTS} element={<CreateProduct />} />
+      </Route>
+
+      <Route path={path.MEMBER} element={<MemberLayout />} >
+        <Route path={path.PERSONAL} element={<Personal />} />
+
+      </Route>
+
      </Routes>
     </div>
   );

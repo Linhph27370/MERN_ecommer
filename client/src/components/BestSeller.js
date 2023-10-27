@@ -4,6 +4,7 @@ import { Product } from './'
 import Slider from "react-slick";
 import image1 from '../assets/banner1-home2_2000x_crop_center.avif'
 import image2 from '../assets/banner2-home2_2000x_crop_center.avif'
+
 const tabs =[
     {id:1, name: 'best seller'},
     {id:2, name: 'new arrivals'},

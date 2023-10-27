@@ -6,7 +6,19 @@ const path = {
     PRODUCTS: 'products',
     BLOGS: 'blogs',
     OURSERVICES: 'ourservices',
-    FAQs: 'fqa'
+    FAQs: 'fqa',
+
+    //Admin
+    ADMIN: 'admin',
+    DASHBOARD: 'dashboard',
+    MANGE_USER: 'manage-user',
+    MANGE_PRODUCTS: 'manage-products',
+    MANGE_ORDER: 'manage-order',
+    CREATE_PRODUCTS: 'create-products',
+
+    //Member
+    MEMBER:'member',
+    PERSONAL: 'personal'
 
 }
 

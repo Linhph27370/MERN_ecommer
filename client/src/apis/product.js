@@ -4,3 +4,8 @@ export const apiGetProducts = (params) => axios({
     method: 'get',
     params 
 })
+export const apiCreateProducts= (data) => axios({
+    url: '/product/',
+    method: 'post',
+    data 
+})
