@@ -6,7 +6,7 @@ export const navigation = [
         id: 1,
         value: 'HOME',
         path: `/${path.HOME}`
-    },,
+    },
     {
         id: 2,
         value: 'PRODUCTS',
@@ -19,8 +19,8 @@ export const navigation = [
     },
     {
         id: 4,
-        value: 'OUR SERVICES',
-        path: `/${path.OURSERVICES}`
+        value: 'SERVICES',
+        path: `/${path.SERVICES}`
     },
     {
         id: 5,

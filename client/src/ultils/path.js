@@ -3,11 +3,13 @@ const path = {
     HOME: '',
     ALL : '*',
     LOGIN: 'login',
-    PRODUCTS: 'products',
+    PRODUCTS: ':category',
     BLOGS: 'blogs',
     OURSERVICES: 'ourservices',
+    SERVICES: 'services',
     FAQs: 'fqa',
-
+    DETAIL_PRODUCT__PID__TITLE :'san-pham/:pid/:title',
+    DETAIL_PRODUCT : 'san-pham',
     //Admin
     ADMIN: 'admin',
     DASHBOARD: 'dashboard',

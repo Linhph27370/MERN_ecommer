@@ -4,6 +4,11 @@ export const apiGetProducts = (params) => axios({
     method: 'get',
     params 
 })
+export const apiGetProduct = (pid) => axios({
+    url: '/product/',
+    method: 'get',
+    pid 
+})
 export const apiCreateProducts= (data) => axios({
     url: '/product/',
     method: 'post',

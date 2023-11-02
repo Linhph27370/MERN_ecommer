@@ -6,6 +6,8 @@ import { renderStartFromNumber } from '../ultils/helper'
 import {SelectOption} from './'
 import icons from '../ultils/icons'
 import { withBaseComponet } from '../hocs/withBaseComponet'
+import { Link } from 'react-router-dom'
+import path from '../ultils/path'
 const {AiFillEye,AiOutlineShoppingCart,AiFillHeart} = icons
 
 const Product = ({productData, isNew , navigate}) => {
@@ -18,8 +20,10 @@ const Product = ({productData, isNew , navigate}) => {
   const [isShowOption, setIsShowOption] = useState(false)
   return (
     <div className='w-full text-base px-[10px]'>
-      <div
+      <Link
+      
       className='w-full border p-[15px] flex flex-col items-center'
+      to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
       onClick={e => navigate(`admin`)}
       onMouseEnter={e => {
         console.log(e);
@@ -48,7 +52,7 @@ const Product = ({productData, isNew , navigate}) => {
           <span className='line-clamp-1'>{productData?.title}</span>
           <span>{`${formatMoney(productData?.price)} VND`}</span>
         </div> 
-      </div>
+      </Link>
     </div>
     
   )
