@@ -26,7 +26,6 @@ const Product = ({productData, isNew , navigate}) => {
       to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
       onClick={e => navigate(`admin`)}
       onMouseEnter={e => {
-        console.log(e);
         e.stopPropagation()
         setIsShowOption(true)
       }}
@@ -48,7 +47,11 @@ const Product = ({productData, isNew , navigate}) => {
         <img src={isNew ? labelNew : labelTrending} alt='' className='absolute top-[0px] right-0 w-[100px] h-[35px] object-cover' />
       </div>
         <div className='flex flex-col mt-[15px] items-start gap-1 w-full'>
-        <span className='flex'>{renderStartFromNumber(productData?.totalRatings)}</span>
+        <span className='flex'>{renderStartFromNumber(productData?.totalRatings)?.map((el, index) => (
+              <span key={index}>
+                {el}
+              </span>
+            ))}</span>
           <span className='line-clamp-1'>{productData?.title}</span>
           <span>{`${formatMoney(productData?.price)} VND`}</span>
         </div> 
