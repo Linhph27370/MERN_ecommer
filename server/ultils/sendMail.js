@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const asyncHandler = require('express-async-handler')
 
-const sendMail = asyncHandler(async ({ email, html }) => {
+const sendMail = asyncHandler(async ({ email, html, subject }) => {
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -10,13 +10,16 @@ const sendMail = asyncHandler(async ({ email, html }) => {
             user: process.env.EMAIL_NAME, // generated ethereal user
             pass: process.env.EMAIL_APP_PASSWORD, // generated ethereal password
         },
+        tls: {
+            rejectUnauthorized: false, // Bỏ qua kiểm tra chứng chỉ tự ký
+        },
     });
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-        from: '"Cuahangdientu" <no-relply@cuahangdientu.com>', // sender address
+        from: 'Cuahangdientu <no-relply@cuahangdientu.com>', // sender address
         to: email, // list of receivers
-        subject: "Forgot password", // Subject line
+        subject: subject, // Subject line
         html: html, // html body
     });
 
