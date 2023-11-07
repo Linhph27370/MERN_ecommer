@@ -46,7 +46,10 @@ const Home = () => {
               <h4 className='font-semibold uppercase'>{el.title}</h4>
               <ul className='text-sm'>
                   {el?.brand?.map(item =>(
-                    <li key={item}>{item}</li>
+                    <span key={item} className=''>
+                      <li >{item}</li>
+                    </span>
+                   
                   ))}
               </ul>
             </div>

@@ -7,9 +7,11 @@ const path = {
     BLOGS: 'blogs',
     OURSERVICES: 'ourservices',
     SERVICES: 'services',
+    FINAL_REGISTER: 'finalregister/:status', 
     FAQs: 'fqa',
     DETAIL_PRODUCT__PID__TITLE :'san-pham/:pid/:title',
     DETAIL_PRODUCT : 'san-pham',
+    RESET_PASSWORD : 'reset-password/:token',
     //Admin
     ADMIN: 'admin',
     DASHBOARD: 'dashboard',

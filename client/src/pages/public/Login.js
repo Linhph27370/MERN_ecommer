@@ -1,11 +1,13 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, InputField } from '../../components'
-import { apiRegister, apiLogin } from '../../apis/user'
+import { apiRegister, apiLogin , apiForgotPassword } from '../../apis/user'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import path from '../../ultils/path'
-import { regiser } from '../../store/user/userSlice'
+import { toast } from 'react-toastify'
+import { login } from '../../store/user/userSlice'
 import { useDispatch } from 'react-redux'
+import { validate } from '../../ultils/helper'
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -16,7 +18,9 @@ const Login = () => {
     lastname: '',
     mobile: ''
   })
+  const [invalidFiedls,setInvalidFields] = useState([])
   const [isRegister, setIsRegister] = useState(false)
+  const [isForgotPassword, setIsForgotPassword] = useState(false)
   const resetPayload = () => {
     setPayload({
       email: '',
@@ -26,11 +30,27 @@ const Login = () => {
       mobile: ''
     })
   }
+  const [email, setEmail] = useState('')
+  const handldeForgotPassword = async () => {  
+      const response = await apiForgotPassword({email})
+      if(response.success){
+        toast.success(response.mes,{theme:'colored'})
+      }else{
+        toast.info(response.mes,{theme:'colored'})
+      }
+  }
+
+  useEffect(() =>{
+    resetPayload()
+  },[isRegister])
+  // submit
   const handldeSubmit = useCallback(async () => {
     const { firstname, lastname, mobile, ...data } = payload
-    if (isRegister) {
+
+    const invalids = isRegister ? validate(payload,setInvalidFields) : validate(data,setInvalidFields)
+    if(invalids === 0){
+       if (isRegister) {
       const response = await apiRegister(payload)
-      console.log(response);
       if (response.success) {
         Swal.fire('Congratulation', response.mes, 'success')
           .then(() => {
@@ -40,20 +60,46 @@ const Login = () => {
       } else {
         Swal.fire('Oops', response.mes, 'error')
       }
-      console.log(payload);
     } else {
       const rs = await apiLogin(data)
       if (rs.success) {
-        dispatch(regiser({isLoggedIn: true, token: rs.accessToken, userData: rs.userData}))
+        dispatch(login({isLoggedIn: true, token: rs.accessToken, userData: rs.userData}))
         navigate(`/${path.HOME}`)
       } else {
         Swal.fire('Oops', rs.mes, 'error')
       }
     }
+    }
+   
   }, [payload, isRegister])
-
   return (
     <div className='w-screen h-screen relative'>
+      {isForgotPassword && <div className='absolute top-0 left-0 bottom-0 right-0 animate-slide-right bg-overlay flex flex-col items-center py-8 z-50'>
+        <div className='flex flex-col gap-4'>
+          <label htmlFor='email' className='text-white uppercase font-semibold'>Enter your email:</label>
+          <input 
+            type='text'
+            id='email'
+            className='w-[800px] p-2 pb-2 border-b outline-none placeholder:text:sm'
+            placeholder='Exp: email@gmail.com'
+            value={email}
+            onChange={e=> setEmail(e.target.value)}
+          />
+          <div className='flex items-center justify-end w-full gap-4'>
+          <Button 
+            handleOnClick={handldeForgotPassword}
+            name='Submit'
+            style='px-4 py-2 rounded-md text-white bg-blue-500 text-semibold my-2'
+          />
+          <Button 
+            name='Back'
+            handleOnClick={()=> setIsForgotPassword(false)}
+            style='px-4 py-2 rounded-md text-white bg-orange-500 text-semibold my-2'
+          />
+        </div>
+        </div>
+        
+      </div>}
       <img
         src='https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg'
         className='w-full h-full'
@@ -68,11 +114,15 @@ const Login = () => {
               value={payload.firstname}
               setValue={setPayload}
               nameKey='firstname'
+              invalidFiedls={invalidFiedls}
+              setInvalidFields={setInvalidFields}
             />
             <InputField
               value={payload.lastname}
               setValue={setPayload}
               nameKey='lastname'
+              invalidFiedls={invalidFiedls}
+              setInvalidFields={setInvalidFields}
             />
 
           </div>}
@@ -80,17 +130,23 @@ const Login = () => {
             value={payload.email}
             setValue={setPayload}
             nameKey='email'
+            invalidFiedls={invalidFiedls}
+            setInvalidFields={setInvalidFields}
           />
           {isRegister && <InputField
             value={payload.mobile}
             setValue={setPayload}
             nameKey='mobile'
+            invalidFiedls={invalidFiedls}
+            setInvalidFields={setInvalidFields}
           />}
           <InputField
             value={payload.password}
             setValue={setPayload}
             nameKey='password'
             type='password'
+            invalidFiedls={invalidFiedls}
+            setInvalidFields={setInvalidFields}
           />
 
           <Button
@@ -101,7 +157,7 @@ const Login = () => {
           />
 
           <div className='flex items-center justify-between my-2 w-full text-sm'>
-            {!isRegister && <span className='text-blue-500 hover:underline cursor-pointer'>Forgot your account</span>}
+            {!isRegister && <span onClick={() => setIsForgotPassword(true)} className='text-blue-500 hover:underline cursor-pointer'>Forgot your account</span>}
             {!isRegister && <span
               className='text-blue-500 hover:underline cursor-pointer'
               onClick={() => setIsRegister(true)}

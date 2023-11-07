@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom'
-import {Home , Login, Public, Product, DetailProduct ,FAQ , Blogs, Service} from './pages/public'
+import {Home , Login, Public, Product, DetailProduct ,FAQ , Blogs, Service, FinalRegister, ResetPassword} from './pages/public'
 import path from './ultils/path'
 import { getCategories } from './store/app/asyncActions';
 import { useDispatch } from 'react-redux';
 import {ToastContainer } from 'react-toastify'
 import {AdminLayout, CreateProduct, Dashboard, ManageProduct,ManageUser, MangeOrder} from './pages/admin'
 import {MemberLayout,Personal} from './pages/member'
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -23,9 +24,12 @@ function App() {
         <Route path={path.FAQs} element={<FAQ />}/>
         <Route path={path.BLOGS} element={<Blogs />}/>
         <Route path={path.SERVICES} element={<Service />}/>
+        <Route path={path.RESET_PASSWORD} element={<ResetPassword />}/>
       </Route>
 
       <Route path={path.LOGIN} element={<Login />}/>
+      <Route path={path.FINAL_REGISTER} element={<FinalRegister />}/>
+
 
       <Route path={path.ADMIN} element={<AdminLayout />} >
         <Route path={path.DASHBOARD} element={<Dashboard />} />
@@ -41,6 +45,20 @@ function App() {
       </Route>
 
      </Routes>
+     <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      />
+      {/* Same as */}
+    <ToastContainer />
     </div>
   );
 }
