@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button, InputField } from '../../components'
-import { apiRegister, apiLogin , apiForgotPassword } from '../../apis/user'
+import { apiRegister, apiLogin , apiForgotPassword, apiFinalregister } from '../../apis/user'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import path from '../../ultils/path'
@@ -75,8 +75,19 @@ const Login = () => {
     }
    
   }, [payload, isRegister])
-  const finalRegister = () =>{
-      console.log({token});
+  const finalRegister = async () =>{
+      const response = await apiFinalregister(token)
+      if(response.success){
+          Swal.fire('register Successfully . Please login your account', response.mes, 'success')
+          .then(() => {
+            setIsRegister(false)
+            resetPayload()
+          })
+      }else {
+        Swal.fire('Oops', response.mes, 'error')
+      }
+      setIsVerifyEmail(false)
+      setToken('')
   }
   return (
     <div className='w-screen h-screen relative'>
