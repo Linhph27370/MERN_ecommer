@@ -18,6 +18,7 @@ const Login = () => {
     lastname: '',
     mobile: ''
   })
+  const [isVerifyEmail, setIsVerifyEmail] = useState(false)
   const [invalidFiedls,setInvalidFields] = useState([])
   const [isRegister, setIsRegister] = useState(false)
   const [isForgotPassword, setIsForgotPassword] = useState(false)
@@ -30,6 +31,7 @@ const Login = () => {
       mobile: ''
     })
   }
+  const [token, setToken] = useState('')
   const [email, setEmail] = useState('')
   const handldeForgotPassword = async () => {  
       const response = await apiForgotPassword({email})
@@ -52,11 +54,12 @@ const Login = () => {
        if (isRegister) {
       const response = await apiRegister(payload)
       if (response.success) {
-        Swal.fire('Congratulation', response.mes, 'success')
-          .then(() => {
-            setIsRegister(false)
-            resetPayload()
-          })
+        setIsVerifyEmail(true)
+        // Swal.fire('Congratulation', response.mes, 'success')
+        //   .then(() => {
+        //     setIsRegister(false)
+        //     resetPayload()
+        //   })
       } else {
         Swal.fire('Oops', response.mes, 'error')
       }
@@ -72,8 +75,27 @@ const Login = () => {
     }
    
   }, [payload, isRegister])
+  const finalRegister = () =>{
+      console.log({token});
+  }
   return (
     <div className='w-screen h-screen relative'>
+      {isVerifyEmail && <div className='absolute top-0 left-0 bottom-0 right-0 bg-overlay z-50 flex flex-col justify-center items-center'>
+        <div className='bg-white w-[500px] rounded-sm p-8'>
+            <h4 className=''>We sent a code to your mail. Please check your mail and enter your code:</h4>
+            <input type='text' 
+              value={token}
+              onChange={e => setToken(e.target.value)}
+              className='p-2 border-2 rounded-md outline-none'
+            />
+            <button
+              className='px-4 py-2 bg-blue-500 font-semibold text-white rounded-md ml-4'
+              onClick={finalRegister}
+            >
+              sumbit
+            </button>
+        </div>
+      </div>}
       {isForgotPassword && <div className='absolute top-0 left-0 bottom-0 right-0 animate-slide-right bg-overlay flex flex-col items-center py-8 z-50'>
         <div className='flex flex-col gap-4'>
           <label htmlFor='email' className='text-white uppercase font-semibold'>Enter your email:</label>
