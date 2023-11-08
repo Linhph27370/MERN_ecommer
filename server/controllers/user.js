@@ -46,22 +46,23 @@ const register = asyncHandler(async (req,res) =>{
         }
 })
 const finalRegister = asyncHandler(async(req, res)=>{
-    const cookie = req.cookies
-    const {token} = req.params
-    if(!cookie || cookie?.dataregister?.token !== token){
-        res.clearCookie('dataregister')
-        return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
-    }
-    const newUser = await User.create({
-            email: cookie?.dataregister?.email, 
-            password: cookie?.dataregister?.password,
-            mobile: cookie?.dataregister?.mobile,
-            firstname: cookie?.dataregister?.firstname,
-            lastname: cookie?.dataregister?.lastname,
-        })
-         res.clearCookie('dataregister')
-    if(newUser) return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`)
-    else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
+    // const cookie = req.cookies
+    const { token } = req.params
+    const notActivedEmail = await User.find({email: new RegExp(`${token}$`)})
+    return res.status(400).json({
+        success: notActivedEmail ? true : false,
+        mes: notActivedEmail ? notActivedEmail : 'something went wrong !'
+})
+    // const newUser = await User.create({
+    //         email: cookie?.dataregister?.email, 
+    //         password: cookie?.dataregister?.password,
+    //         mobile: cookie?.dataregister?.mobile,
+    //         firstname: cookie?.dataregister?.firstname,
+    //         lastname: cookie?.dataregister?.lastname,
+    //     })
+    //      res.clearCookie('dataregister')
+    // if(newUser) return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`)
+    // else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
 })
 // Refresh token => Cấp mới access token
 // Access token => Xác thực người dùng, quân quyên người dùng

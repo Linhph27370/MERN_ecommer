@@ -5,6 +5,11 @@ export const apiRegister = (data) => axios({
     data,
     withCredentials: true,
 })
+export const apiFinalregister = (token) => axios({
+    url: '/user/finalregister/'+ token,
+    method: 'post',
+
+})
 export const apiLogin = (data) => axios({
     url: '/user/login',
     method: 'post',
