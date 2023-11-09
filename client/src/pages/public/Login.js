@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Button, InputField } from '../../components'
 import { apiRegister, apiLogin , apiForgotPassword, apiFinalregister } from '../../apis/user'
 import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import path from '../../ultils/path'
 import { toast } from 'react-toastify'
 import { login } from '../../store/user/userSlice'
@@ -201,7 +201,7 @@ const Login = () => {
               onClick={() => setIsRegister(false)}
             >Go login</span>}
           </div>
-
+            <Link  className='text-blue-500 hover:underline cursor-pointer' to={`/${path.HOME}`}>Go to home</Link>
         </div>
       </div>
     </div>

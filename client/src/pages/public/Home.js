@@ -6,8 +6,6 @@ const Home = () => {
   const {newProducts} = useSelector(state => state.products)
   const {categories} = useSelector(state => state.app)
   const { isLoggedIn, current } = useSelector(state => state.user)
-  console.log({isLoggedIn, current});
-  console.log('new',categories);
   return (
     <>
     <div className='w-main flex'>
