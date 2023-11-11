@@ -2,10 +2,11 @@ import { HiPhone,HiOutlineUserGroup } from 'react-icons/hi';
 import {HiOutlineMail} from 'react-icons/hi'
 import {BiShoppingBag} from 'react-icons/bi'
 import {RiProductHuntLine,RiBillLine} from 'react-icons/ri'
-import {FaUserCircle} from 'react-icons/fa'
+import {FaUserCircle,FaShieldAlt,FaTty} from 'react-icons/fa'
 import {CiLogout} from 'react-icons/ci'
-
-import {AiOutlineStar , AiFillHeart ,AiFillStar, AiOutlineShoppingCart,AiFillEye,AiOutlineDashboard} from 'react-icons/ai'
+import {BsTruck} from 'react-icons/bs'
+import {FaReply} from 'react-icons/fa6'
+import {AiOutlineStar , AiFillHeart ,AiFillStar, AiOutlineShoppingCart,AiFillEye,AiOutlineDashboard,} from 'react-icons/ai'
 const icons = {
     HiPhone,
     HiOutlineMail,
@@ -20,7 +21,11 @@ const icons = {
     HiOutlineUserGroup,
     RiProductHuntLine,
     RiBillLine,
-    CiLogout
+    CiLogout,
+    FaShieldAlt,
+    BsTruck,
+    FaReply,
+    FaTty
 }
 
 export default icons

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import path from '../ultils/path'
 const {AiFillEye,AiOutlineShoppingCart,AiFillHeart} = icons
 
-const Product = ({productData, isNew , navigate}) => {
+const Product = ({productData, isNew , navigate, normal}) => {
   const hanldeClickOpions = (e, flag) =>{
     e.stopPropagation()
     if(flag === 'MENU') navigate(`admin`)
@@ -23,7 +23,7 @@ const Product = ({productData, isNew , navigate}) => {
       <Link
       
       className='w-full border p-[15px] flex flex-col items-center'
-      to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
+      to={`/${productData?.category?.toLowerCase()}/${productData?._id}/${productData?.title}`}
       onClick={e => navigate(`admin`)}
       onMouseEnter={e => {
         e.stopPropagation()
@@ -44,7 +44,7 @@ const Product = ({productData, isNew , navigate}) => {
       <img
         src={productData?.thumb || 'https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png'}className='w-[274px] h-[274px] object-cover'
         />
-        <img src={isNew ? labelNew : labelTrending} alt='' className='absolute top-[0px] right-0 w-[100px] h-[35px] object-cover' />
+        {!normal && <img src={isNew ? labelNew : labelTrending} alt='' className='absolute top-[0px] right-0 w-[100px] h-[35px] object-cover' />}
       </div>
         <div className='flex flex-col mt-[15px] items-start gap-1 w-full'>
         <span className='flex'>{renderStartFromNumber(productData?.totalRatings)?.map((el, index) => (

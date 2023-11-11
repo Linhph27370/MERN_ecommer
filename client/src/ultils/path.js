@@ -9,7 +9,7 @@ const path = {
     SERVICES: 'services',
     FINAL_REGISTER: 'finalregister/:status', 
     FAQs: 'fqa',
-    DETAIL_PRODUCT__PID__TITLE :'san-pham/:pid/:title',
+    DETAIL_PRODUCT__CATEGORY__PID__TITLE :':category/:pid/:title',
     DETAIL_PRODUCT : 'san-pham',
     RESET_PASSWORD : 'reset-password/:token',
     //Admin

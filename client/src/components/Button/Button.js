@@ -1,15 +1,16 @@
 import React, { memo } from 'react'
 
-const Button = ({children,handleOnClick, style, type= 'button',name, iconsBefore, iconAfter , fw}) => {
+const Button = ({children,handleOnClick, style, type= 'button', iconsBefore, iconAfter , fw}) => {
   return (
     <button
     type={type}
-    className={style ? style : `px-4 py-2 rounded-md text-white bg-main text-semibold my-2 ${fw ? 'w-full' : 'w-fit'}`}
+    // className={style ? style : `px-4 py-2 rounded-md text-white bg-main text-semibold my-2 ${fw ? 'w-full' : 'w-fit'}`}
+    className={`px-4 py-2 rounded-md text-white bg-main text-semibold my-2 ${fw ? 'w-full' : 'w-fit'} ${style || ''}`}
     onClick={() => {handleOnClick && handleOnClick()}}
     >
-       {/* {children} */}
+       {children}
        {iconsBefore}
-      <span>{name}</span>
+      {/* <span>{name}</span> */}
       {iconAfter}
     </button>
   )
