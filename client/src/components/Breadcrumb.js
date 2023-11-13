@@ -2,7 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 const Breadcrumb = ({title , category}) => {
-  console.log({title, category});
   const productId = { 1: "/:categoy/:pid/:title" };
   
 
@@ -12,7 +11,6 @@ const Breadcrumb = ({title , category}) => {
   const CustomPropsBreadcrumb = ({ someProp }) => <span>{someProp}</span>;
   const routes = [
     // { path: "/category/:pid", breadcrumb: DynamicProductBreadcrumb },
-    
     { path: "/", breadcrumb: "home" },
     { path: "/:category", breadcrumb: category },
     { path: "/:categoy/:pid/:title", breadcrumb: title, DynamicProductBreadcrumb },
@@ -23,7 +21,6 @@ const Breadcrumb = ({title , category}) => {
     },
   ];
   const breadcrumbs =useBreadcrumbs(routes)
-  console.log(breadcrumbs);
   return (
     <div className='text-sm'>
        {breadcrumbs?.filter(el => !el.match.route === false).map(({ match, breadcrumb } , index, self) => (

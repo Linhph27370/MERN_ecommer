@@ -1,0 +1,89 @@
+import React, { useEffect, useState, useCallback} from 'react'
+import { useParams, useSearchParams } from 'react-router-dom'
+import { Breadcrumb, Product } from '../../components'
+import { apiGetProducts } from '../../apis/product'
+import Masonry from 'react-masonry-css'
+import SearchItem from '../../components/Product/SearchItem'
+const breakpointColumnsObj = {
+  default: 4,
+  1100: 3,
+  700: 2,
+  500: 1
+};
+const ProducList = () => {
+  const [products, setProducts] = useState(null)
+  const [activeClick, setActiveClick] = useState(null)
+  const [params] = useSearchParams()
+  const { category } = useParams()
+  const fetchProductsByCategory = async (queries) => {
+    const response = await apiGetProducts(queries)
+    console.log(response);
+      if(response.success) setProducts(response.products)
+      
+  }
+  
+  useEffect(() =>{
+    let param = []
+    for(let i of params.entries()) param.push(i)
+    const queries = {}
+    for(let i of params) queries[i[0]] = i[1]
+    fetchProductsByCategory(queries)
+    console.log(queries);
+  },[params])
+  const changeActiveFilter  = useCallback((name)=>{
+    if(activeClick === name )  setActiveClick(null)
+    else setActiveClick(name)
+  console.log((name));
+  },[activeClick])
+  return (
+    <div className='w-full'>
+      <div className='h-[81px] felx justify-center items-center bg-gray-100'>
+      <div className='h-[81px] bg-gray-100 p-2 mt-4 '>
+          <h3 className='font-bold uppercase'>{category}</h3>
+          <Breadcrumb category={category} />
+        </div> 
+       </div>
+      <div className='w-main border p-4 flex justify-between'>
+            <div className='w-4/5 flex gap-4 flex-col'>
+              <span className='font-semibold text-sm'>Filter by</span>
+              <div className='flex items-center gap-3'>
+              <SearchItem 
+                name='price'
+                activeClick={activeClick}
+                changeActiveFilter={changeActiveFilter}
+                type='input'
+
+              />
+              <SearchItem 
+                name='color'
+                activeClick={activeClick}
+                changeActiveFilter={changeActiveFilter}
+              />
+              </div>
+            </div>
+            <div className='w-1/5'>
+              Sort by 
+            </div>
+        </div>
+        <div className='mt-8 w-main m-auto'>
+
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column">
+          {products?.map(el =>(
+            <Product 
+            key={el._id}
+            productData={el}
+            pid={el.id}
+            normal={true}
+          />
+          ))}
+        </Masonry>
+        </div>
+        <div className='w-full h-[500px]'></div>
+    </div>
+  )
+}
+
+export default ProducList

@@ -6,7 +6,7 @@ import {FaUserCircle,FaShieldAlt,FaTty} from 'react-icons/fa'
 import {CiLogout} from 'react-icons/ci'
 import {BsTruck} from 'react-icons/bs'
 import {FaReply} from 'react-icons/fa6'
-import {AiOutlineStar , AiFillHeart ,AiFillStar, AiOutlineShoppingCart,AiFillEye,AiOutlineDashboard,} from 'react-icons/ai'
+import {AiOutlineStar , AiFillHeart ,AiFillStar, AiOutlineShoppingCart,AiFillEye,AiOutlineDashboard,AiOutlineDown} from 'react-icons/ai'
 const icons = {
     HiPhone,
     HiOutlineMail,
@@ -25,7 +25,8 @@ const icons = {
     FaShieldAlt,
     BsTruck,
     FaReply,
-    FaTty
+    FaTty,
+    AiOutlineDown
 }
 
 export default icons

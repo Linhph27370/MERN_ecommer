@@ -1,13 +1,12 @@
 import React, {useState} from 'react'
-import { formatMoney } from '../ultils/helper'
-import labelNew from '../assets/label-new.png'
-import labelTrending from '../assets/trending.png'
-import { renderStartFromNumber } from '../ultils/helper'
-import {SelectOption} from './'
-import icons from '../ultils/icons'
-import { withBaseComponet } from '../hocs/withBaseComponet'
+import { formatMoney } from '../../ultils/helper'
+import labelNew from '../../assets/label-new.png'
+import labelTrending from '../../assets/trending.png'
+import { renderStartFromNumber } from '../../ultils/helper'
+import {SelectOption} from '..'
+import icons from '../../ultils/icons'
+import { withBaseComponet } from '../../hocs/withBaseComponet'
 import { Link } from 'react-router-dom'
-import path from '../ultils/path'
 const {AiFillEye,AiOutlineShoppingCart,AiFillHeart} = icons
 
 const Product = ({productData, isNew , navigate, normal}) => {

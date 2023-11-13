@@ -11,8 +11,6 @@ const TopHeader = () => {
   const {isLoggedIn,current} = useSelector(state => state.user)
   useEffect(()=>{
       if(isLoggedIn) dispatch(getCurrent())
-    console.log(current?.firstname);
-    console.log(isLoggedIn);
     },[dispatch,isLoggedIn])
 
 

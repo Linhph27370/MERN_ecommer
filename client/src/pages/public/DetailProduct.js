@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { apiGetProduct , apiGetProducts} from '../../apis'
-import { Breadcrumb, ProductExtraInfo ,Button, SelectQuantity , ProductInformation, CustomSlider} from '../../components'
+import { Breadcrumb, Productextrainfo ,Button, SelectQuantity , ProductInformation, CustomSlider} from '../../components'
 import Slider from 'react-slick';
 import ReactImageMagnify from 'react-image-magnify';
 import {formatMoney, renderStartFromNumber} from '../../ultils/helper'
 import { productExtraInfo } from '../../ultils/contants';
-import Productextrainfo from '../../components/ProductExtraInfo';
 const settings = {
   dots: true,
   infinite: false,
@@ -22,7 +21,6 @@ const DetailProduct = () => {
   const fetchProductData = async () =>{
     const response = await apiGetProduct(pid)
     if(response.success) setProduct(response.productData)
-    console.log(product);
   }
   const fetchProducts = async () =>{
     const response = await apiGetProducts({category})
@@ -83,8 +81,9 @@ const DetailProduct = () => {
           </div>
           
           <div className='w-2/5'  >
-            <div className='flex items-center justify-between'>
-              <h3 className='text-[30px] text-main font-semibold'>{`${formatMoney(product?.price)} VND`} </h3>
+            <h2 className='text-xl text-[35px] font-semibold text-black mb-2'>{product?.title} VND</h2>
+            <div className='flex items-center justify-between'>  
+              <h3 className='text-[25px] text-main font-semibold'>{`${formatMoney(product?.price)} VND`} </h3>
               <span className='text-sm text-green-500'>{`kho: ${product?.quantity}`}</span>
             </div>
            
@@ -121,7 +120,6 @@ const DetailProduct = () => {
                 icon={el.icon}
                 sub={el.sub}
               />
-
             ))}
           </div>
         </div>
