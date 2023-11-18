@@ -17,23 +17,38 @@ const ProducList = () => {
   const { category } = useParams()
   const fetchProductsByCategory = async (queries) => {
     const response = await apiGetProducts(queries)
-    console.log(response);
       if(response.success) setProducts(response.products)
-      
   }
   
   useEffect(() =>{
     let param = []
     for(let i of params.entries()) param.push(i)
     const queries = {}
+    let priceQuery = {}
     for(let i of params) queries[i[0]] = i[1]
-    fetchProductsByCategory(queries)
-    console.log(queries);
+    if(queries.to && queries.from){
+      priceQuery  = { $and: [
+       {price: {gte: queries.from}},
+       {price: {lte: queries.to}}
+     ]}
+     delete queries.price
+   }
+    if(queries.from){
+      queries.price = {gte: queries.from}
+    }
+    if(queries.to){
+      queries.price = {lte: queries.to}
+    }
+    delete queries.from
+    delete queries.to
+   
+    const q = {...priceQuery, ...queries}
+    fetchProductsByCategory(q)
   },[params])
+  
   const changeActiveFilter  = useCallback((name)=>{
     if(activeClick === name )  setActiveClick(null)
     else setActiveClick(name)
-  console.log((name));
   },[activeClick])
   return (
     <div className='w-full'>
