@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback} from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
-import { Breadcrumb, Product } from '../../components'
+import { useParams, useSearchParams , useNavigate, createSearchParams} from 'react-router-dom'
+import { Breadcrumb, InputSelect, Product } from '../../components'
 import { apiGetProducts } from '../../apis/product'
 import Masonry from 'react-masonry-css'
 import SearchItem from '../../components/Product/SearchItem'
+import { sorts } from '../../ultils/contants'
 const breakpointColumnsObj = {
   default: 4,
   1100: 3,
@@ -11,8 +12,10 @@ const breakpointColumnsObj = {
   500: 1
 };
 const ProducList = () => {
+  const navigate = useNavigate()
   const [products, setProducts] = useState(null)
   const [activeClick, setActiveClick] = useState(null)
+  const [sort, setSort] = useState('')
   const [params] = useSearchParams()
   const { category } = useParams()
   const fetchProductsByCategory = async (queries) => {
@@ -43,6 +46,7 @@ const ProducList = () => {
     delete queries.to
    
     const q = {...priceQuery, ...queries}
+    console.log(q);
     fetchProductsByCategory(q)
   },[params])
   
@@ -50,6 +54,17 @@ const ProducList = () => {
     if(activeClick === name )  setActiveClick(null)
     else setActiveClick(name)
   },[activeClick])
+  //change value sort
+  const changeValue = useCallback((value) =>{
+   setSort(value)
+  },[sort])
+
+  useEffect(() => { 
+    navigate({
+      pathname: `/${category}`,
+      search: createSearchParams({sort}).toString()
+  })
+   },[sort])
   return (
     <div className='w-full'>
       <div className='h-[81px] felx justify-center items-center bg-gray-100'>
@@ -76,8 +91,14 @@ const ProducList = () => {
               />
               </div>
             </div>
-            <div className='w-1/5'>
-              Sort by 
+            <div className='w-1/5 flex flex-col gap-3'>
+              <span className='font-semibold'>Sort by : </span>
+              <InputSelect 
+              value={sort} 
+              options={sorts} 
+              changeValue={changeValue}
+
+              />
             </div>
         </div>
         <div className='mt-8 w-main m-auto'>
